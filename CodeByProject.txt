@@ -1,0 +1,37 @@
+This file will contain the code that I added/edited. 
+Following this scheme => 
+
+Project # - Template Name - Module Edited - # Lines
+	'Notes about project
+		***
+		Code added/edited
+		***
+Project 1 - Mod_Payments_ARC- 5 Lines:
+	'In the file there were previous notes that I did not want to edit/remove from their old programmer. In this version, I removed those notes to contain the lines that I edited
+ 		***
+                TotalVal = (Sheets(Sht_In).Cells(R, "F").Value + Sheets(Sht_In).Cells(R, "G").Value + Sheets(Sht_In).Cells(R, "H").Value + Sheets(Sht_In).Cells(R, "J").Value)
+                Sheets(Sht_Out).Cells(RowOutput, Col_TotalPmt).Value = TotalVal
+		ClientVal = Math.Round(0.8 * TotalVal, 2)
+                Sheets(Sht_Out).Cells(RowOutput, Col_Client_Share).Value = ClientVal
+                Sheets(Sht_Out).Cells(RowOutput, Col_LLP_Share).Value = TotalVal - ClientVal
+		***
+
+Project 2 - Blank Forwarder - Mod_Paymenst_FSCS - 12 lines:
+	No notes.
+		***
+		PlName = Sheets(Sht_In).Cells(R + 1, "A").Value
+		Sheets(Sht_Out).Cells(RowOutput, Col_Defendant_Name).Value = DefName
+         
+		If InStr(PlName, "Plaintiff: ") Then
+			PlName = Replace(PlName, "Plaintiff: ", "")
+			PlName = Replace(PlName, (Chr(10) & "Plaintiff Name 2:"), "")
+		Else
+			PlName = Sheets(Sht_In).Cells(Row_Plaintiff, "A").Value
+		End If
+		Sheets(Sht_Out).Cells(RowOutput, Col_Plaintiff_Name).Value = PlName
+		Sheets(Sht_Out).Cells(RowOutput, Col_Plaintiff_Name).Value = Replace(PlName, (Chr(10) & "Plaintiff Name 2:"), "")
+		Sheets(Sht_Out).Cells(RowOutput, Col_Computer_Ref_Number).Value = Sheets(Sht_In).Cells(R, "C").Value
+		Sheets(Sht_Out).Cells(RowOutput, Col_Costs_Returned).Value = Sheets(Sht_In).Cells(R, "I").Value
+		***
+
+Project 3 - 

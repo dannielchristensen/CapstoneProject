@@ -1,0 +1,10 @@
+These are the files that have been edited. Note that these files can only be executed in debug with their files and if you attempt to run the files 
+from the excel templates, they will fail. Their previous programmer made hard coded certain file locations that only work on their current layout.
+
+To view the code you have to first enable the Developer tab in excel:
+
+File -> Options -> Customize Ribbon -> Check the "Developer" tab in the Main Tabs section
+
+After that, you can go to the Developer tab and select "View Code" to see the code that is used in the excel template. The template is written in Visual Basic.
+
+For my project, I am updating their specific templates since they have not been able to update their templates. 
