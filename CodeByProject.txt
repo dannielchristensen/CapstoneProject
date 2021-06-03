@@ -16,8 +16,8 @@ Project 1 - Mod_Payments_ARC- 5 Lines:
                 Sheets(Sht_Out).Cells(RowOutput, Col_LLP_Share).Value = TotalVal - ClientVal
 		***
 
-Project 2 - Blank Forwarder - Mod_Paymenst_FSCS - 12 lines:
-	No notes.
+Project 2 - Blank Forwarder - Mod_Paymenst_FSCS - 12 Lines:
+	'No notes.
 		***
 		PlName = Sheets(Sht_In).Cells(R + 1, "A").Value
 		Sheets(Sht_Out).Cells(RowOutput, Col_Defendant_Name).Value = DefName
@@ -34,4 +34,23 @@ Project 2 - Blank Forwarder - Mod_Paymenst_FSCS - 12 lines:
 		Sheets(Sht_Out).Cells(RowOutput, Col_Costs_Returned).Value = Sheets(Sht_In).Cells(R, "I").Value
 		***
 
-Project 3 - 
+Project 3 -  Clear Recovery - Mod_Declarations - 7 Lines:
+	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
+		***
+		Public Col_Attorney_Fees
+
+		Col_Attorney_Fees = 5
+    		Col_Costs_Returned = 6
+    		Col_Client_Share = 7
+    		Col_LLP_Share = 8
+    		Col_Notes = 9
+    		Col_Amount_Paid_to_Int = 10
+		***
+
+
+Project 3 -  Clear Recovery - Mod_Declarations - 2 Lines:
+	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
+		***
+		Sheets(Sht_Out).Cells(RowOutput, Col_TotalPmt).Value = (Sheets(Sht_In).Cells(R, "F").Value + Sheets(Sht_In).Cells(R, "G").Value + Sheets(Sht_In).Cells(R, "J").Value)
+		Sheets(Sht_Out).Cells(RowOutput, Col_Attorney_Fees).Value = Sheets(Sht_In).Cells(R, "H").Value
+		***
