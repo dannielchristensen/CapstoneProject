@@ -48,9 +48,27 @@ Project 3 -  Clear Recovery - Mod_Declarations - 7 Lines:
 		***
 
 
-Project 3 -  Clear Recovery - Mod_Declarations - 2 Lines:
+Project 3 -  Clear Recovery - Mod_Declarations - 8 Lines:
 	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
 		***
-		Sheets(Sht_Out).Cells(RowOutput, Col_TotalPmt).Value = (Sheets(Sht_In).Cells(R, "F").Value + Sheets(Sht_In).Cells(R, "G").Value + Sheets(Sht_In).Cells(R, "J").Value)
-		Sheets(Sht_Out).Cells(RowOutput, Col_Attorney_Fees).Value = Sheets(Sht_In).Cells(R, "H").Value
+		Dim TotalPayment, LLP_Share
+		TotalPayment = (Sheets(Sht_In).Cells(R, "F").Value + Sheets(Sht_In).Cells(R, "G").Value + Sheets(Sht_In).Cells(R, "J").Value) '+ Sheets(Sht_In).Cells(R, "H").Value
+                LLP_Share = Math.Round(0.14 * TotalVal, 2)
+                Sheets(Sht_Out).Cells(RowOutput, Col_TotalPmt).Value = TotalPayment
+                Sheets(Sht_Out).Cells(RowOutput, Col_DirPmt).Value = Sheets(Sht_In).Cells(R, "E").Value
+                Sheets(Sht_Out).Cells(RowOutput, Col_Client_Share).Value = TotalPayment - LLP_Share
+                Sheets(Sht_Out).Cells(RowOutput, Col_LLP_Share).Value = LLP_Share
+                Sheets(Sht_Out).Cells(RowOutput, Col_Attorney_Fees).Value = Sheets(Sht_In).Cells(R, "H").Value
 		***
+
+Project 3 - Credit World - Mod_Payments_CWS - 6 Lines:
+	`Editings an existing template. These are only the lines that I added or edited
+		***
+		If Sheets(Sht_In).Cells(R, "G").Value > 0 Then
+                    DirPmtCount = DirPmtCount + 1
+                    Sheets(Sht_Out).Cells(RowOutput, Col_Defendant_Name).Interior.ColorIndex = 6
+                Else
+                    Sheets(Sht_Out).Cells(RowOutput, Col_Defendant_Name).Interior.ColorIndex = 2
+                End If
+		***
+TOTAL LINES: 38
