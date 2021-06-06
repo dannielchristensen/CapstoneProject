@@ -6,7 +6,7 @@ Project # - Template Name - Module Edited - # Lines
 		***
 		Code added/edited
 		***
-Project 1 - Mod_Payments_ARC- 5 Lines:
+Project 1 - Mod_Payments_ARC- 5 Lines - 30 minutes:
 	'In the file there were previous notes that I did not want to edit/remove from their old programmer. In this version, I removed those notes to contain the lines that I edited
  		***
                 TotalVal = (Sheets(Sht_In).Cells(R, "F").Value + Sheets(Sht_In).Cells(R, "G").Value + Sheets(Sht_In).Cells(R, "H").Value + Sheets(Sht_In).Cells(R, "J").Value)
@@ -16,7 +16,7 @@ Project 1 - Mod_Payments_ARC- 5 Lines:
                 Sheets(Sht_Out).Cells(RowOutput, Col_LLP_Share).Value = TotalVal - ClientVal
 		***
 
-Project 2 - Blank Forwarder - Mod_Paymenst_FSCS - 12 Lines:
+Project 2 - Blank Forwarder - Mod_Paymenst_FSCS - 12 Lines - 30 minutes:
 	'No notes.
 		***
 		PlName = Sheets(Sht_In).Cells(R + 1, "A").Value
@@ -34,24 +34,31 @@ Project 2 - Blank Forwarder - Mod_Paymenst_FSCS - 12 Lines:
 		Sheets(Sht_Out).Cells(RowOutput, Col_Costs_Returned).Value = Sheets(Sht_In).Cells(R, "I").Value
 		***
 
-Project 3 -  Clear Recovery - Mod_Declarations - 7 Lines:
+Project 3 -  Clear Recovery - Mod_Declarations - 8 Lines - 10 minutes:
 	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
 		***
 		Public Col_Attorney_Fees
+		Public Col_Balance
 
 		Col_Attorney_Fees = 5
     		Col_Costs_Returned = 6
     		Col_Client_Share = 7
     		Col_LLP_Share = 8
-    		Col_Notes = 9
+    		Col_Balance = 9
     		Col_Amount_Paid_to_Int = 10
 		***
 
 
-Project 3 -  Clear Recovery - Mod_Declarations - 8 Lines:
+Project 3 -  Clear Recovery - Mod_Payments_CWS - 12 Lines - 30 minutes:
 	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
 		***
 		Dim TotalPayment, LLP_Share
+
+   		Sheets(Sht_Out).Range("A8:J65000").ClearContents
+   		Sheets(Sht_Out).Range("A8:J65000").Interior.ColorIndex = xlNone
+		Sheets(Sht_Out).Range("L3").ClearContents
+    		Sheets(Sht_Out).Range("L6").ClearContents
+
 		TotalPayment = (Sheets(Sht_In).Cells(R, "F").Value + Sheets(Sht_In).Cells(R, "G").Value + Sheets(Sht_In).Cells(R, "J").Value) '+ Sheets(Sht_In).Cells(R, "H").Value
                 LLP_Share = Math.Round(0.14 * TotalVal, 2)
                 Sheets(Sht_Out).Cells(RowOutput, Col_TotalPmt).Value = TotalPayment
@@ -61,7 +68,7 @@ Project 3 -  Clear Recovery - Mod_Declarations - 8 Lines:
                 Sheets(Sht_Out).Cells(RowOutput, Col_Attorney_Fees).Value = Sheets(Sht_In).Cells(R, "H").Value
 		***
 
-Project 3 - Credit World - Mod_Payments_CWS - 6 Lines:
+Project 3 - Credit World - Mod_Payments_CWS - 6 Lines - 10 minutes:
 	`Editings an existing template. These are only the lines that I added or edited
 		***
 		If Sheets(Sht_In).Cells(R, "G").Value > 0 Then
@@ -71,4 +78,81 @@ Project 3 - Credit World - Mod_Payments_CWS - 6 Lines:
                     Sheets(Sht_Out).Cells(RowOutput, Col_Defendant_Name).Interior.ColorIndex = 2
                 End If
 		***
-TOTAL LINES: 38
+
+Project 3 - Clear Recovery - Mod_GetData - 2 Lines - 5 minutes:
+	'This had to be edited since it is a new template. 
+		***
+		Sheets("Sheet1").Copy Before:=Workbooks( _
+        		"CLEAR RECOVERY - REPORT TEMPLATE.xlsb").Sheets(1)
+		***
+
+Project 3 - Clear Recovery - Mod_Clear - 4 Lines - 5 minutes:
+	'Updated for new column
+		***
+		Sheets("Payments").Range("A8:J65000").ClearContents
+		Sheets("Payments").Range("A8:J65000").Interior.ColorIndex = xlNone
+		Sheets("Payments").Range("L3").ClearContents
+		Sheets("Payments").Range("L6").ClearContents
+		***
+
+Project 3 - Clear Recovery - Mod_Payments - 4 Lines - 5 minutes:
+	'Updated for new column
+		***
+		If Str2 = "Collection Fees For Direct Pmts" Then
+            	Sheets(Sht_Out).Cells(3, "L").Value = Sheets(Sht_In).Cells(R, "B").Value
+        	End If
+        	If (Sheets(Sht_Out).Cells(3, "L").Value & "X" <> "X") Then Exit For
+		***
+
+Project 3 - Clear Recovery - Mod_Payments - 8 Lines - 30 minutes:
+	'Change notes column to balance and keep same formatting for other lines.
+		***
+		Dim ArraySplit
+                Dim Balance As Integer
+                ArraySplit = Split(Sheets(Sht_In).Cells(R + 1, "A").Value, "Plaintiff:")
+                Balance = Split(ArraySplit(0), " ")(2)
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).Value = Balance
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).NumberFormat = "_($* #,##0.00_);_($* (#,##0.00);_($* ""-""??_);_(@_)"
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).WrapText = False
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).Style = "Currency"
+		***
+
+Project 3 - Blank Forwarder Straight Costs - Mod_Payments - 8 Lines - 10 minutes:
+	'Change notes column to balance and keep same formatting for other lines.
+		***
+		Dim ArraySplit
+                Dim Balance As Integer
+                ArraySplit = Split(Sheets(Sht_In).Cells(R + 1, "A").Value, "Plaintiff:")
+                Balance = Split(ArraySplit(0), " ")(2)
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).Value = Balance
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).NumberFormat = "_($* #,##0.00_);_($* (#,##0.00);_($* ""-""??_);_(@_)"
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).WrapText = False
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).Style = "Currency"
+		***
+
+
+Project 3 - Cash Link - Mod_Payments - 8 Lines - 10 minutes:
+	'Change notes column to balance and keep same formatting for other lines.
+		***
+		Dim ArraySplit
+                Dim Balance As Integer
+                ArraySplit = Split(Sheets(Sht_In).Cells(R + 1, "A").Value, "Plaintiff:")
+                Balance = Split(ArraySplit(0), " ")(2)
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).Value = Balance
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).NumberFormat = "_($* #,##0.00_);_($* (#,##0.00);_($* ""-""??_);_(@_)"
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).WrapText = False
+                Sheets(Sht_Out).Cells(RowOutput, Col_Balance).Style = "Currency"
+		***
+Project 3 -  Cash Link - Mod_Declarations - 1 Lines - 10 minutes:
+	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
+		***
+		Public Col_Balance
+		***
+
+Project 3 -  Blank Forwarder Straight Costs - Mod_Declarations - 1 Lines - 10 minutes:
+	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
+		***
+		Public Col_Balance
+		***
+
+Total Lines: 74
