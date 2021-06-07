@@ -155,4 +155,13 @@ Project 3 -  Blank Forwarder Straight Costs - Mod_Declarations - 1 Lines - 10 mi
 		Public Col_Balance
 		***
 
-Total Lines: 74
+
+Project 3 -  Credit World - Mod_Declarations - 4 Lines - 30 minutes:
+	'2 changes for this part. Change if statement to check correct column in input and edit total statement to use excel math (must be embedded in the code so that it doesn't change the template layout.
+		***
+		Dim ROut As String
+		If Sheets(Sht_In).Cells(R, "F").Value > 0 Or Sheets(Sht_In).Cells(R, "F").Value < 0 Then
+		ROut = CStr(RowOutput - 1)
+		Sheets(Sht_Out).Cells(RowOutput, Col_Total_Pmt).Value = "=SUM(R[-" + ROut + "]C:R[-1]C)"
+		***
+Total Lines: 78
