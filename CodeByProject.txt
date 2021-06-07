@@ -164,4 +164,12 @@ Project 3 -  Credit World - Mod_Declarations - 4 Lines - 30 minutes:
 		ROut = CStr(RowOutput - 1)
 		Sheets(Sht_Out).Cells(RowOutput, Col_Total_Pmt).Value = "=SUM(R[-" + ROut + "]C:R[-1]C)"
 		***
-Total Lines: 78
+
+Project 3 - Credit World - Mod_Other - 3 Lines - 15 minutes:
+	'There was an error that wasn't being caught so I fixed that and edited it to remove any highlighting that was created. Inside Sub allclear()
+		***
+		Sheets("Summary").Unprotect
+		Sheets("Payments").Range("B2:B6000").Interior.ColorIndex = 2
+		Sheets("Summary").Protect
+		***
+Total Lines: 81
