@@ -172,4 +172,84 @@ Project 3 - Credit World - Mod_Other - 3 Lines - 15 minutes:
 		Sheets("Payments").Range("B2:B6000").Interior.ColorIndex = 2
 		Sheets("Summary").Protect
 		***
-Total Lines: 81
+
+Project 4 - Docket Report Template - Mod_ReadDate - 14 Lines - 45 Minutes:
+	'Added St Louis city and county to the read data method
+		***
+ 		Case "StLouisCity"
+			Sht_Out = "StLouisCity"
+			lHeader = "St Louis City, Missouri"
+			StrCnty = "St Louis"
+			StrState = "KS"
+            		Sht_PTC = "StLouisCity_PTC"
+            		Sht_CIT = "StLouisCity_EX-CIT"
+        	Case "StLouisCo"
+            		Sht_Out = "StLouisCo"
+            		lHeader = "St Louis County, Missouri"
+	            	StrCnty = "St Louis"
+            		StrState = "KS"
+            		Sht_PTC = "StLouisCo_PTC"
+            		Sht_CIT = "StLouisCo_EX-CIT"
+		***
+
+Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 14 Lines - 45 Minutes:
+	'Added for the button. Mostly calling already created methods. 
+		***
+			Public Sub Btn_RunStLouisCity()
+    				Dim cnt, stat
+    				TopPriority 'Mod_Set_Priority
+    				If (Sheets.Count > 3) Then
+        				If (MsgBox("Clear Sheets?", vbYesNo) = vbYes) Then Clear_Sheets
+    				End If
+    				cnt = New_Sheets 'below, in this module
+    				Set_Defaults 'Mod_Declarations
+    				If (Not GetData) Then Exit Sub 'Mod_GetData
+   
+    				Application.ScreenUpdating = False
+    
+    				stat = Read_Data("StLouisCity")
+    
+    				Application.ScreenUpdating = True
+    
+    				If (stat) Then Finalize
+				End Sub
+
+		***
+
+Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 14 Lines - 45 Minutes:
+	'Added for the button. Mostly calling already created methods. 
+		***
+		Public Sub Btn_RunStLouisCo()
+    			Dim cnt, stat
+    			TopPriority 'Mod_Set_Priority
+    			If (Sheets.Count > 3) Then
+        			If (MsgBox("Clear Sheets?", vbYesNo) = vbYes) Then Clear_Sheets
+    			End If
+    			cnt = New_Sheets 'below, in this module
+    			Set_Defaults 'Mod_Declarations
+    			If (Not GetData) Then Exit Sub 'Mod_GetData
+   
+    			Application.ScreenUpdating = False
+  
+    			stat = Read_Data("StLouisCo")
+
+    			Application.Screen
+			Updating = True
+    			If (stat) Then Finalize
+			End Sub
+		***
+Project 4 - Docket Report Template - Mod_Control- 2 Lines - 45 Minutes:
+	'Added for the button. Mostly calling already created methods.
+		***
+		stat = Read_Data("StLouisCo")
+    		stat = Read_Data("StLouisCity")
+		***
+
+Project 4 - Docket Report Template - Mod_SetPriority - 3 Lines - 15 Minutes:
+	'Had to be edited for 64 bit system
+		***
+		Private Declare PtrSafe Function GetCurrentProcessId Lib "kernel32" () As Long
+		Private Declare PtrSafe Function OpenProcess Lib "kernel32" (ByVal dwDesiredAccess As Long, ByVal bInheritHandle As Long, ByVal dwProcessID As Long) As Long
+		Private Declare PtrSafe Function SetPriorityClass Lib "kernel32" (ByVal hProcess As Long, ByVal dwPriorityClass As Long) As Long
+		***
+Total Lines: 128
