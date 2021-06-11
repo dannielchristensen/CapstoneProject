@@ -252,4 +252,15 @@ Project 4 - Docket Report Template - Mod_SetPriority - 3 Lines - 15 Minutes:
 		Private Declare PtrSafe Function OpenProcess Lib "kernel32" (ByVal dwDesiredAccess As Long, ByVal bInheritHandle As Long, ByVal dwProcessID As Long) As Long
 		Private Declare PtrSafe Function SetPriorityClass Lib "kernel32" (ByVal hProcess As Long, ByVal dwPriorityClass As Long) As Long
 		***
-Total Lines: 128
+
+Project 4 - Docket Report Template - Sheet12(Cover) (Code) - 6 Lines - 15 Minutes:
+	'Added to create and set button click event
+		***
+		Private Sub Btn_StLouisCity_click()
+    			Btn_RunStLouisCity
+		End Sub
+		Private Sub Btn_StLouisCo_click()
+    			Btn_RunStLouisCo
+		End Sub
+		***
+Total Lines: 134
