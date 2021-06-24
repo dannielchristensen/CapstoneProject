@@ -173,26 +173,51 @@ Project 3 - Credit World - Mod_Other - 3 Lines - 15 minutes:
 		Sheets("Summary").Protect
 		***
 
-Project 4 - Docket Report Template - Mod_ReadDate - 14 Lines - 45 Minutes:
+Project 4 - Docket Report Template - Mod_ReadData - 38 Lines - 45 Minutes:
 	'Added St Louis city and county to the read data method
 		***
- 		Case "StLouisCity"
-			Sht_Out = "StLouisCity"
-			lHeader = "St Louis City, Missouri"
-			StrCnty = "St Louis"
-			StrState = "KS"
-            		Sht_PTC = "StLouisCity_PTC"
-            		Sht_CIT = "StLouisCity_EX-CIT"
-        	Case "StLouisCo"
-            		Sht_Out = "StLouisCo"
-            		lHeader = "St Louis County, Missouri"
-	            	StrCnty = "St Louis"
-            		StrState = "KS"
-            		Sht_PTC = "StLouisCo_PTC"
-            		Sht_CIT = "StLouisCo_EX-CIT"
+	        Case "STLC"
+        	    Sht_Out = "STLC"
+        	    lHeader = "St. Louis City, Missouri"
+        	    StrCnty = "St. Louis City"
+        	    StrState = "MO"
+        	    Sht_PTC = "STLC_PTC"
+        	    Sht_CIT = "STLC_EX-CIT"
+    		Case "STLCC"
+     		    Sht_Out = "STLCC"
+                    lHeader = "St. Louis County, Missouri"
+        	    StrCnty = "St. Louis"
+        	    StrState = "MO"
+        	    Sht_PTC = "STLCC_PTC"
+        	    Sht_CIT = "STLCC_EX-CIT"
+	' Different switch statement below -- this does not count as a line
+ 	       Case "STLC"
+	            ActiveWorkbook.Worksheets("Input").Sort.SortFields.Clear
+       		    ActiveWorkbook.Worksheets("Input").Sort.SortFields.Add Key:=Range(Cells(1, Col_CaseNo), Cells(65000, Col_CaseNo)) _
+                	, SortOn:=xlSortOnValues, Order:=xlDescending, DataOption:=xlSortNormal
+        	    With ActiveWorkbook.Worksheets("Input").Sort
+                	.SetRange Range("A1:Z65000")
+                	.Header = xlYes
+                	.MatchCase = False
+                	.Orientation = xlTopToBottom
+                	.SortMethod = xlPinYin
+                	.Apply
+            	    End With
+	       Case "STLCC"
+            	    ActiveWorkbook.Worksheets("Input").Sort.SortFields.Clear
+            	    ActiveWorkbook.Worksheets("Input").Sort.SortFields.Add Key:=Range(Cells(1, Col_CaseNo), Cells(65000, Col_CaseNo)) _
+                	, SortOn:=xlSortOnValues, Order:=xlDescending, DataOption:=xlSortNormal
+            	    With ActiveWorkbook.Worksheets("Input").Sort
+                	.SetRange Range("A1:Z65000")
+                	.Header = xlYes
+                	.MatchCase = False
+                	.Orientation = xlTopToBottom
+                	.SortMethod = xlPinYin
+                	.Apply
+            	    End With
 		***
 
-Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 14 Lines - 45 Minutes:
+Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 15 Lines - 45 Minutes:
 	'Added for the button. Mostly calling already created methods. 
 		***
 			Public Sub Btn_RunStLouisCity()
@@ -204,7 +229,7 @@ Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 14 Lines - 45 Minutes:
     				cnt = New_Sheets 'below, in this module
     				Set_Defaults 'Mod_Declarations
     				If (Not GetData) Then Exit Sub 'Mod_GetData
-   
+   				PrepareData
     				Application.ScreenUpdating = False
     
     				stat = Read_Data("StLouisCity")
@@ -216,7 +241,7 @@ Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 14 Lines - 45 Minutes:
 
 		***
 
-Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 14 Lines - 45 Minutes:
+Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 15 Lines - 45 Minutes:
 	'Added for the button. Mostly calling already created methods. 
 		***
 		Public Sub Btn_RunStLouisCo()
@@ -228,7 +253,7 @@ Project 4 - Docket Report Template - Mod_OnlyStLouisCity- 14 Lines - 45 Minutes:
     			cnt = New_Sheets 'below, in this module
     			Set_Defaults 'Mod_Declarations
     			If (Not GetData) Then Exit Sub 'Mod_GetData
-   
+   			PrepareData
     			Application.ScreenUpdating = False
   
     			stat = Read_Data("StLouisCo")
@@ -263,4 +288,4 @@ Project 4 - Docket Report Template - Sheet12(Cover) (Code) - 6 Lines - 15 Minute
     			Btn_RunStLouisCo
 		End Sub
 		***
-Total Lines: 134
+Total Lines: 160
