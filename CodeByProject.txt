@@ -34,7 +34,7 @@ Project 2 - Blank Forwarder - Mod_Paymenst_FSCS - 12 Lines - 30 minutes:
 		Sheets(Sht_Out).Cells(RowOutput, Col_Costs_Returned).Value = Sheets(Sht_In).Cells(R, "I").Value
 		***
 
-Project 3 -  Clear Recovery - Mod_Declarations - 8 Lines - 10 minutes:
+Project 3 -  Clear Recovery - Mod_Declarations - 8 Lines - 15 minutes:
 	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
 		***
 		Public Col_Attorney_Fees
@@ -79,14 +79,14 @@ Project 3 - Credit World - Mod_Payments_CWS - 6 Lines - 10 minutes:
                 End If
 		***
 
-Project 3 - Clear Recovery - Mod_GetData - 2 Lines - 5 minutes:
+Project 3 - Clear Recovery - Mod_GetData - 2 Lines - 15 minutes:
 	'This had to be edited since it is a new template. 
 		***
 		Sheets("Sheet1").Copy Before:=Workbooks( _
         		"CLEAR RECOVERY - REPORT TEMPLATE.xlsb").Sheets(1)
 		***
 
-Project 3 - Clear Recovery - Mod_Clear - 4 Lines - 5 minutes:
+Project 3 - Clear Recovery - Mod_Clear - 4 Lines - 15 minutes:
 	'Updated for new column
 		***
 		Sheets("Payments").Range("A8:J65000").ClearContents
@@ -95,7 +95,7 @@ Project 3 - Clear Recovery - Mod_Clear - 4 Lines - 5 minutes:
 		Sheets("Payments").Range("L6").ClearContents
 		***
 
-Project 3 - Clear Recovery - Mod_Payments - 4 Lines - 5 minutes:
+Project 3 - Clear Recovery - Mod_Payments - 4 Lines - 15 minutes:
 	'Updated for new column
 		***
 		If Str2 = "Collection Fees For Direct Pmts" Then
@@ -117,7 +117,7 @@ Project 3 - Clear Recovery - Mod_Payments - 8 Lines - 30 minutes:
                 Sheets(Sht_Out).Cells(RowOutput, Col_Balance).Style = "Currency"
 		***
 
-Project 3 - Blank Forwarder Straight Costs - Mod_Payments - 8 Lines - 10 minutes:
+Project 3 - Blank Forwarder Straight Costs - Mod_Payments - 8 Lines - 20 minutes:
 	'Change notes column to balance and keep same formatting for other lines.
 		***
 		Dim ArraySplit
@@ -131,7 +131,7 @@ Project 3 - Blank Forwarder Straight Costs - Mod_Payments - 8 Lines - 10 minutes
 		***
 
 
-Project 3 - Cash Link - Mod_Payments - 8 Lines - 10 minutes:
+Project 3 - Cash Link - Mod_Payments - 8 Lines - 20 minutes:
 	'Change notes column to balance and keep same formatting for other lines.
 		***
 		Dim ArraySplit
@@ -143,13 +143,13 @@ Project 3 - Cash Link - Mod_Payments - 8 Lines - 10 minutes:
                 Sheets(Sht_Out).Cells(RowOutput, Col_Balance).WrapText = False
                 Sheets(Sht_Out).Cells(RowOutput, Col_Balance).Style = "Currency"
 		***
-Project 3 -  Cash Link - Mod_Declarations - 1 Lines - 10 minutes:
+Project 3 -  Cash Link - Mod_Declarations - 1 Lines - 20 minutes:
 	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
 		***
 		Public Col_Balance
 		***
 
-Project 3 -  Blank Forwarder Straight Costs - Mod_Declarations - 1 Lines - 10 minutes:
+Project 3 -  Blank Forwarder Straight Costs - Mod_Declarations - 1 Lines - 20 minutes:
 	'They wanted me to create a new template, but to copy exisitng and make changes. These are only the lines that I personally edited.
 		***
 		Public Col_Balance
