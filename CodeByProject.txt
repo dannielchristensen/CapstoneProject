@@ -307,7 +307,7 @@ Project 5 - KCI Cover Sheet TEMPLATE - Mod_KCIcoversheet - 14 lines - 30 minutes
 		Sheets(Sht_Out).Cells(RowOutput + 29, "E").Value = Sheets(Sht_In).Cells(R, Col_Amount_Referred_to_Client).Value
 		If ((Sheets(Sht_In).Cells(R, Col_Defendant_Last_Name).Value = Sheets(Sht_In).Cells(R - 1, Col_Defendant_Last_Name).Value) And (Sheets(Sht_In).Cells(R, Col_Defendant_First_Name).Value = Sheets(Sht_In).Cells(R - 1, Col_Defendant_First_Name).Value) And (Sheets(Sht_In).Cells(R, Col_Suit_Number).Value = Sheets(Sht_In).Cells(R - 1, Col_Suit_Number).Value)) Then
 		***
-Project 5 - KCI Cover Sheet TEMPLATE - Mod_Declarations - 10 lines - 30 minutes:
+Project 5 - KCI Cover Sheet TEMPLATE - Mod_Declarations - 12 lines - 30 minutes:
 	'This was edited to remove references to KCI in code
 		***
 		Public Col_Account_Number
@@ -315,6 +315,8 @@ Project 5 - KCI Cover Sheet TEMPLATE - Mod_Declarations - 10 lines - 30 minutes:
 		Public Col_Client_Number
 		Public Col_Amount_Referred_to_Client
 		Public Col_Batch_Date
+		Public Sht_In, Sht_Out, Sht_Sum, Sht_Out_Cpy As String
+		Sht_Out_Cpy = "Cover Sheets Copy"
 		Col_Account_Number = 1
 		Col_Suit_Number = 2
 		Col_Client_Number = 29
@@ -322,9 +324,64 @@ Project 5 - KCI Cover Sheet TEMPLATE - Mod_Declarations - 10 lines - 30 minutes:
 		Col_Batch_Date = 37
 		***
 
-Project 5 - KCI Cover Sheet TEMPLATE - Sheet4 - 1 Line - 10 minutes:
-	'This was edited to clean up code
+Project 5 - KCI Cover Sheet TEMPLATE - Mod_Buttons - 9 Lines - 15 Minutes:
+	'Created to store macros for the buttons
 		***
-		ReadData
+		Sub Btn_CreateCoverSheets_Click()
+		    Set_Defaults
+		    MacroGetData
+		    ReadData
+		End Sub
+
+		Sub Btn_Clear_Click()
+		    Set_Defaults
+		    ClearData
+		End Sub
 		***
-Total Lines: 185
+
+Project 5 - KCI Cover Sheet TEMPLATE - Mod_ClearData - 35 Lines - 90 Minutes:
+	'Created to be able to clear the template and restore it to a default state. If statement is used to check if hidden sheet exists, if it does then we can save time by just copying that sheet. 
+	'If it doesn't, then we need to run ReadData on a blank input field to get formatting for the Cover Sheet. Then we must create the copy of the copy sheet to use in the future. 
+	'Function was created to check if the sheets exists so that we do not have a hard error occur
+		***
+		Option Explicit
+
+		Sub ClearData()
+			Set_Defaults
+
+			If CheckSheets(Sht_Out_Cpy) Then
+				Worksheets(Sht_Out_Cpy).Visible = True
+				Application.DisplayAlerts = False
+				If CheckSheets(Sht_In) Then Worksheets(Sht_In).Delete
+				If CheckSheets(Sht_Out) Then Worksheets(Sht_Out).Delete
+				Application.DisplayAlerts = True
+				Sheets.Add(Before:=Worksheets(Sht_Out_Cpy)).Name = Sht_In
+				Worksheets(Sht_Out_Cpy).Copy Before:=Worksheets(Sht_Out_Cpy)
+				ActiveSheet.Name = Sht_Out
+				Worksheets(Sht_Out_Cpy).Visible = False
+			Else
+				If CheckSheets(Sht_In) Then
+					Application.DisplayAlerts = False
+					Worksheets(Sht_In).Delete
+					Application.DisplayAlerts = True
+				End If
+				Sheets.Add(Before:=Worksheets(Sht_Out)).Name = Sht_In
+				ReadData
+				Worksheets(Sht_Out).Copy After:=Worksheets(Sht_Out)
+				ActiveSheet.Name = Sht_Out_Cpy
+				Worksheets(Sht_Out_Cpy).Visible = False
+			End If
+		End Sub
+
+		Function CheckSheets(ByVal sht_name As String) As Boolean
+			CheckSheets = False
+			Dim sht: For Each sht In Worksheets
+				If sht.Name = sht_name Then
+					CheckSheets = True
+					Exit Function
+				End If
+			Next sht
+		End Function
+
+		***
+Total Lines: 230
