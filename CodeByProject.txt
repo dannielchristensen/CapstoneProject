@@ -288,4 +288,43 @@ Project 4 - Docket Report Template - Sheet12(Cover) (Code) - 6 Lines - 15 Minute
     			Btn_RunStLouisCo
 		End Sub
 		***
-Total Lines: 160
+
+Project 5 - KCI Cover Sheet TEMPLATE - Mod_KCIcoversheet - 14 lines - 30 minutes:
+	'Lines edited to remove references to "KCI" -- lines not neccessarily next to eachother
+		***
+		Sub ReadData()
+		Sheets(Sht_Out).Cells("1", "A").Value = "New Case Information"
+		Sheets(Sht_Out).Cells("2", "A").Value = "Batch Date:"
+		Sheets(Sht_Out).Cells(RowOutput + 28, "A").Value = "Account #"
+		Sheets(Sht_Out).Cells(RowOutput + 28, "E").Value = "Referred to Client"
+		Sheets(Sht_Out).Cells(RowOutput, "A").Value = Sheets(Sht_In).Cells(R, Col_Account_Number).Value
+		Sheets(Sht_Out).Cells(RowOutput, "E").Value = Sheets(Sht_In).Cells(R, Col_Amount_Referred_to_Client).Value
+		Sheets(Sht_Out).Cells(RowOutput + 1, "B").Value = Sheets(Sht_In).Cells(R, Col_Batch_Date).Value
+		Sheets(Sht_Out).Cells(RowOutput + 31, "A").Value = Sheets(Sht_In).Cells(R, Col_Account_Number).Value
+		Sheets(Sht_Out).Cells(RowOutput + 31, "E").Value = Sheets(Sht_In).Cells(R, Col_Amount_Referred_to_Client).Value
+		Sheets(Sht_Out).Cells("2", "B").Value = Sheets(Sht_In).Cells(R, Col_Batch_Date).Value
+		Sheets(Sht_Out).Cells(RowOutput + 29, "A").Value = Sheets(Sht_In).Cells(R, Col_Account_Number).Value
+		Sheets(Sht_Out).Cells(RowOutput + 29, "E").Value = Sheets(Sht_In).Cells(R, Col_Amount_Referred_to_Client).Value
+		If ((Sheets(Sht_In).Cells(R, Col_Defendant_Last_Name).Value = Sheets(Sht_In).Cells(R - 1, Col_Defendant_Last_Name).Value) And (Sheets(Sht_In).Cells(R, Col_Defendant_First_Name).Value = Sheets(Sht_In).Cells(R - 1, Col_Defendant_First_Name).Value) And (Sheets(Sht_In).Cells(R, Col_Suit_Number).Value = Sheets(Sht_In).Cells(R - 1, Col_Suit_Number).Value)) Then
+		***
+Project 5 - KCI Cover Sheet TEMPLATE - Mod_Declarations - 10 lines - 30 minutes:
+	'This was edited to remove references to KCI in code
+		***
+		Public Col_Account_Number
+		Public Col_Suit_Number
+		Public Col_Client_Number
+		Public Col_Amount_Referred_to_Client
+		Public Col_Batch_Date
+		Col_Account_Number = 1
+		Col_Suit_Number = 2
+		Col_Client_Number = 29
+		Col_Amount_Referred_to_Client = 35
+		Col_Batch_Date = 37
+		***
+
+Project 5 - KCI Cover Sheet TEMPLATE - Sheet4 - 1 Line - 10 minutes:
+	'This was edited to clean up code
+		***
+		ReadData
+		***
+Total Lines: 185
