@@ -1,0 +1,249 @@
+total lines: 228
+total time: 360 Minutes or 6 hours
+total billing time: 6 hours + template time + testing time
+Project 6 - Mod_Clear - 30 Minutes - 47 Lines:
+	'For the clearing function
+	
+		Option Explicit
+		Sub ClearData()
+			Defaults_are_Loaded = Set_Defaults
+			Sheets(Sht_In).Select
+			Application.DisplayAlerts = False
+			ActiveWindow.SelectedSheets.Delete
+			Application.DisplayAlerts = True
+			Sheets.Add(Before:=Worksheets(Sht_Buttons)).Name = Sht_In
+			
+			Sheets(Sht_Out_Jan).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Jan).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_Feb).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Feb).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_Mar).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Mar).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_Apr).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Apr).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_May).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_May).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_June).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_June).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_July).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_July).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_July).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_July).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_Aug).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Aug).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_Sept).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Sept).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_Oct).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Oct).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_Nov).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Nov).Range("A3:J65000").Interior.ColorIndex = xlNone
+			
+			Sheets(Sht_Out_Dec).Range("A3:J65000").ClearContents
+			Sheets(Sht_Out_Dec).Range("A3:J65000").Interior.ColorIndex = xlNone
+		End Sub
+
+Project 6 - Mod_Declaration - 60 Minutes - 43 Lines:
+	'Declares commonly used variables
+		Option Explicit
+
+		Public Sht_In, Sht_Buttons, Sht_Out_Jan, Sht_Out_Feb, Sht_Out_Mar, Sht_Out_Apr, Sht_Out_May, Sht_Out_June, Sht_Out_July
+		Public Sht_Out_Aug, Sht_Out_Sept, Sht_Out_Oct, Sht_Out_Nov, Sht_Out_Dec
+
+		Public Defaults_are_Loaded
+		Public Col_Date, Col_County, Col_Def, Col_Attorney, Col_Time, Col_In_Division, Col_In_Plaintiff, Col_In_Witness, Col_In_Documents, Col_In_Status, Col_In_Comments
+		Public Col_Out_Plaintiff, Col_Out_Witness, Col_Out_Documents, Col_Out_Status, Col_Out_Comments
+
+		Function Set_Defaults()
+			Sht_In = "Input"
+			Sht_Out_Jan = "JAN"
+			Sht_Out_Feb = "FEB"
+			Sht_Out_Mar = "MARCH"
+			Sht_Out_Apr = "APRIL"
+			Sht_Out_May = "MAY"
+			Sht_Out_June = "JUNE"
+			Sht_Out_July = "JULY"
+			Sht_Out_Aug = "AUG"
+			Sht_Out_Sept = "SEPT"
+			Sht_Out_Oct = "OCT"
+			Sht_Out_Nov = "NOV"
+			Sht_Out_Dec = "DEC"
+			Sht_Buttons = "Buttons"
+			
+			Col_Def = "A"
+			Col_Attorney = "B"
+			Col_Time = "C"
+			Col_Date = "D"
+			Col_County = "E"
+			Col_In_Division = "F"
+			Col_In_Plaintiff = "G"
+			Col_In_Witness = "H"
+			Col_In_Documents = "I"
+			Col_In_Status = "J"
+			Col_In_Comments = "K"
+			
+			Col_Out_Plaintiff = "F"
+			Col_Out_Witness = "G"
+			Col_Out_Documents = "H"
+			Col_Out_Status = "I"
+			Col_Out_Comments = "J"
+		End Function
+
+Project 6 - Mod_GetData - 30 Minutes - 62 Lines:
+	'Opens the file and creates the input tab
+		Option Explicit
+
+		Function MacroGetData()
+			Dim FileName
+			
+			' Delete Input sheet
+			'Should put in an if statement to account for the fact that input sheet might already be gone.
+			Sheets("Input").Select
+			Application.DisplayAlerts = False
+			ActiveWindow.SelectedSheets.Delete
+			Application.DisplayAlerts = True
+			'Open source file
+			FileName = Pick_File
+			If (FileName <> "Cancel") Then MsgBox FileName
+			Workbooks.Open FileName
+			'Copy sheet and rename as Input
+			Sheets("Sheet1").Copy Before:=Workbooks( _
+				"2021 Trial Matrix.xlsm").Sheets(1)
+			Sheets("Sheet1").Name = "Input"
+			
+		End Function
+
+		Function Pick_File()
+			Dim fd As FileDialog
+			Dim fso, f
+			Dim Default_Folder
+			Set fso = CreateObject("Scripting.FileSystemObject")
+
+			Default_Folder = "\\SVR2012R2-1\Shares"
+			ChDir Default_Folder
+				'Create a FileDialog object as a File Picker dialog.
+				'Set fd = Application.FileDialog(msoFileDialogFilePicker)
+			
+				'Declare a variable to contain the path of each selected item.
+				Dim SelectedItem As Variant
+			
+				'Use a With...End With block to reference the FileDialog object.
+				With Application.FileDialog(msoFileDialogFilePicker) 'fd
+					'Change the title of the dialog
+					.Title = "Select file to Read"
+					.InitialFileName = Default_Folder ' & "\*"
+					.AllowMultiSelect = False
+
+					'Add a filter that includes Excel file types.
+					.Filters.Add "Excel", "*.xls; *.xlsx; *.xlsb", 1
+			
+					'Use the Show method to display the File Picker dialog box and return the user's action.
+					'If the user presses the action button...
+					If .Show = -1 Then
+						'Step through each string in the FileDialogSelectedItems collection.
+						For Each SelectedItem In .SelectedItems
+								Pick_File = SelectedItem
+								Exit Function
+						Next SelectedItem
+					Else
+						Pick_File = "Cancel"
+					End If
+				End With
+				'Set the object variable to Nothing.
+				'Set fd = Nothing
+
+		End Function
+
+
+Project 6 - Mod_ReadData - 150 Minutes - 45 Lines:
+	'reads input tab and sorts data
+		Option Explicit
+
+		Sub ReadTrialMatrixData()
+			MacroGetData
+			Dim R, LastRow, Str2
+			Dim rowOutput(12) As Integer
+			rowOutput(0) = -1
+			rowOutput(1) = 3
+			rowOutput(2) = 3
+			rowOutput(3) = 3
+			rowOutput(4) = 3
+			rowOutput(5) = 3
+			rowOutput(6) = 3
+			rowOutput(7) = 3
+			rowOutput(8) = 3
+			rowOutput(9) = 3
+			rowOutput(10) = 3
+			rowOutput(11) = 3
+			rowOutput(12) = 3
+			Dim thisDate As Date
+			Dim thisMonth As Integer
+			Dim sht_out_row
+			Defaults_are_Loaded = Set_Defaults
+			LastRow = ActiveCell.SpecialCells(xlLastCell).Row
+			For R = 2 To LastRow
+				Str2 = Sheets(Sht_In).Cells(R, "A").Value
+				If (Str2 & "X" = "X") Then Exit For
+				thisDate = Sheets(Sht_In).Cells(R, "D").Value
+				thisMonth = Month(thisDate)
+				sht_out_row = Switch(thisMonth = 1, Sht_Out_Jan, thisMonth = 2, Sht_Out_Feb, thisMonth = 3, Sht_Out_Mar, thisMonth = 4, Sht_Out_Apr, _
+					thisMonth = 5, Sht_Out_May, thisMonth = 6, Sht_Out_June, thisMonth = 7, Sht_Out_July, thisMonth = 8, Sht_Out_Aug, thisMonth = 9, Sht_Out_Sept, _
+					thisMonth = 10, Sht_Out_Oct, thisMonth = 11, Sht_Out_Nov, thisMonth = 12, Sht_Out_Dec)
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Def).Value = Sheets(Sht_In).Cells(R, Col_Def).Value
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Attorney).Value = Sheets(Sht_In).Cells(R, Col_Attorney).Value
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Time).Value = Sheets(Sht_In).Cells(R, Col_Time).Value
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Date).Value = thisDate
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_County).Value = Sheets(Sht_In).Cells(R, Col_County).Value
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Out_Plaintiff).Value = Sheets(Sht_In).Cells(R, Col_In_Plaintiff).Value
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Out_Witness).Value = Sheets(Sht_In).Cells(R, Col_In_Witness).Value
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Out_Documents).Value = Sheets(Sht_In).Cells(R, Col_In_Documents).Value
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Out_Status).Value = Sheets(Sht_In).Cells(R, Col_In_Status).Value
+				Sheets(sht_out_row).Cells(rowOutput(thisMonth), Col_Out_Comments).Value = Sheets(Sht_In).Cells(R, Col_In_Comments).Value
+				rowOutput(thisMonth) = rowOutput(thisMonth) + 1
+			Next R
+		End Sub
+
+	
+Project 6 - Mod_Save - 90 Minutes - 31 Lines:
+	'creates a copy of the 12 month sheets in a workbook and saves it to their directory
+		Sub SaveTemplate()
+		Dim FilePath, FileName, FileExt, i
+		Dim thisYear As Integer
+		Defaults_are_Loaded = Set_Defaults
+		thisYear = InputBox("Enter the year for this Trial Matrix: ")
+		FilePath = "\\SVR2012R2-1\Shares\"
+		FileName = thisYear & " Trial Matrix"
+		FileExt = ".xlsx"
+		FullName = FilePath & FileName & FileExt
+		Set fso = CreateObject("Scripting.FileSystemObject")
+		If (fso.fileexists(FullName)) Then
+			For i = 2 To 1000
+				If (Not fso.fileexists(FilePath & FileName & "(" & i & ")" & FileExt)) Then
+					Application.DisplayAlerts = False
+					Sheets(Array(Sht_Out_Jan, Sht_Out_Feb, Sht_Out_Mar, Sht_Out_Apr, Sht_Out_May, Sht_Out_June, Sht_Out_July, Sht_Out_Aug, Sht_Out_Sept, Sht_Out_Oct, Sht_Out_Nov, Sht_Out_Dec)).Copy
+					ActiveWorkbook.SaveAs FileName:=FilePath & FileName & "(" & i & ")" & FileExt _
+					, FileFormat:=xlOpenXMLWorkbook, CreateBackup:=False
+					ActiveWorkbook.Save
+					Application.DisplayAlerts = True
+					MsgBox "Report data saved to \\SVR2012R2-1\Shares"
+					Exit For
+				End If
+			Next i
+		Else
+			Application.DisplayAlerts = False
+			Sheets(Array(Sht_Out_Jan, Sht_Out_Feb, Sht_Out_Mar, Sht_Out_Apr, Sht_Out_May, Sht_Out_June, Sht_Out_July, Sht_Out_Aug, Sht_Out_Sept, Sht_Out_Oct, Sht_Out_Nov, Sht_Out_Dec)).Copy
+			ActiveWorkbook.SaveAs FileName:=FullName, FileFormat:=xlOpenXMLWorkbook, CreateBackup:=False
+			Application.DisplayAlerts = True
+			MsgBox "Report data saved to \\SVR2012R2-1\Shares"
+		End If
+	End Sub
